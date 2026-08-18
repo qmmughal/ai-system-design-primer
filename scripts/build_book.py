@@ -318,6 +318,8 @@ def build() -> None:
     HTML(string=html, base_url=str(BUILD)).write_pdf(
         PDF_OUT,
         stylesheets=[CSS(filename=str(BOOK / "book.css"))],
+        pdf_version="1.4",
+        pdf_tags=False,
         metadata={
             "title": "The AI System Design Primer",
             "authors": ["Qaiser Mehmood"],
@@ -326,7 +328,29 @@ def build() -> None:
             "generator": "The AI System Design Primer book builder",
         },
     )
+    _optimize_pdf(PDF_OUT)
     print(f"Wrote {PDF_OUT} ({PDF_OUT.stat().st_size // 1024} KB)")
+
+
+def _optimize_pdf(path: Path) -> None:
+    """Rewrite for browser / GitHub PDF viewers (pdf.js)."""
+    try:
+        import pymupdf
+    except ImportError:
+        return
+    tmp = path.with_suffix(".web.pdf")
+    doc = pymupdf.open(path)
+    doc.save(
+        tmp,
+        garbage=4,
+        deflate=True,
+        clean=True,
+        pretty=False,
+        incremental=False,
+        encryption=pymupdf.PDF_ENCRYPT_NONE,
+    )
+    doc.close()
+    tmp.replace(path)
 
 
 if __name__ == "__main__":

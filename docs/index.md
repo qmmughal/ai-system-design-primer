@@ -3,7 +3,7 @@
 Learn how to design production AI systems.
 Prep for the AI system design interview.
 
-**[Download the book PDF](../book/The-AI-System-Design-Primer.pdf)** — 7×10 modern trade layout, cover, contents, parts, and all chapters.
+**[Open the book PDF](https://raw.githubusercontent.com/qmmughal/ai-system-design-primer/main/book/The-AI-System-Design-Primer.pdf)** — 7×10 modern trade layout, 125 pages.
 
 This is a living document: architectures, numbers, and failure modes are
 updated as the field moves. It is not a list of links, a framework tutorial,
