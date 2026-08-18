@@ -9,3 +9,4 @@ __pycache__/
 *.apkg
 .cache/
 node_modules/
+book/build/
