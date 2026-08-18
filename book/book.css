@@ -1,275 +1,315 @@
-/* The AI System Design Primer — print book */
+/* Modern trade layout — one surface per page, no nested “page in a page”. */
 
 :root {
-  --ink: #161410;
-  --muted: #5c564c;
-  --rule: #d8d0c4;
-  --paper: #fbf8f2;
-  --accent: #2c3d6b;
+  --ink: #12141a;
+  --muted: #5a6270;
+  --faint: #e6e8ee;
+  --accent: #2453d4;
+  --accent-soft: #eef2ff;
+  --paper: #ffffff;
   --cover: #0b1220;
 }
 
-html { background: white; }
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+}
 
 body {
-  font-family: "Noto Serif", "Liberation Serif", serif;
-  font-size: 10.4pt;
-  line-height: 1.42;
-  color: var(--ink);
+  font-family: "Noto Serif", "Liberation Serif", Georgia, serif;
+  font-size: 10.25pt;
+  line-height: 1.45;
   hyphens: auto;
+  orphans: 3;
+  widows: 3;
   text-align: justify;
 }
 
-h1, h2, h3, h4, .sans, nav, .part-label, .running {
+h1, h2, h3, h4, nav, .chapter-kicker, .part-label, .toc,
+.title-page, .half-title, .copyright, figcaption, th {
   font-family: Inter, "Noto Sans", sans-serif;
   hyphens: none;
   text-align: left;
 }
 
+/* —— pages —— */
 @page {
-  size: 7.5in 9.5in;
-  margin: 20mm 18mm 22mm 20mm;
+  size: 7in 10in;
+  margin: 18mm 16mm 18mm 16mm;
   background: var(--paper);
 
   @top-left {
-    content: "The AI System Design Primer";
+    content: "AI System Design Primer";
     font-family: Inter, sans-serif;
-    font-size: 7.5pt;
-    letter-spacing: 0.08em;
+    font-size: 7pt;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
+    padding-bottom: 3pt;
+    border-bottom: 0.4pt solid var(--faint);
+    width: 42%;
   }
   @top-right {
     content: string(chapter-header);
     font-family: Inter, sans-serif;
-    font-size: 7.5pt;
+    font-size: 7pt;
     color: var(--muted);
-    font-style: italic;
+    padding-bottom: 3pt;
+    border-bottom: 0.4pt solid var(--faint);
+    width: 52%;
+    text-align: right;
   }
-  @bottom-center {
+  @bottom-left {
+    content: none;
+  }
+  @bottom-right {
     content: counter(page);
     font-family: Inter, sans-serif;
-    font-size: 9pt;
+    font-size: 8.5pt;
+    font-variant-numeric: tabular-nums;
     color: var(--ink);
   }
 }
 
 @page :blank {
-  @top-left { content: none; }
-  @top-right { content: none; }
-  @bottom-center { content: none; }
+  @top-left { content: none; border: none; }
+  @top-right { content: none; border: none; }
+  @bottom-right { content: none; }
 }
 
 @page cover {
+  size: 7in 10in;
   margin: 0;
   background: var(--cover);
-  @top-left { content: none; }
-  @top-right { content: none; }
-  @bottom-center { content: none; }
+  @top-left { content: none; border: none; }
+  @top-right { content: none; border: none; }
+  @bottom-right { content: none; }
 }
 
 @page front {
-  @top-left { content: none; }
-  @top-right { content: none; }
-  @bottom-center { content: counter(page, lower-roman); }
+  size: 7in 10in;
+  margin: 18mm 16mm 18mm 16mm;
+  background: var(--paper);
+  @top-left { content: none; border: none; }
+  @top-right { content: none; border: none; }
+  @bottom-right {
+    content: counter(page);
+    font-family: Inter, sans-serif;
+    font-size: 8.5pt;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
 }
 
 @page part {
+  size: 7in 10in;
   margin: 0;
   background: var(--cover);
-  @top-left { content: none; }
-  @top-right { content: none; }
-  @bottom-center { content: none; }
+  @top-left { content: none; border: none; }
+  @top-right { content: none; border: none; }
+  @bottom-right { content: none; }
 }
 
-.cover-page { page: cover; page-break-after: always; }
+/* —— cover / front matter —— */
+.cover-page {
+  page: cover;
+  break-after: page;
+}
 .cover-page img {
-  width: 7.5in;
-  height: 9.5in;
+  width: 7in;
+  height: 10in;
   object-fit: cover;
   display: block;
 }
 
 .front { page: front; }
 
-.half-title, .title-page, .copyright, .toc, .preface {
-  page-break-after: always;
-}
-
-.half-title {
-  padding-top: 2.6in;
-}
-.half-title p {
-  font-family: Inter, sans-serif;
-  font-size: 13pt;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  text-align: left;
-}
-
 .title-page {
-  padding-top: 1.35in;
+  page: front;
+  break-after: page;
 }
 .title-page h1 {
-  font-size: 30pt;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  color: var(--cover);
-  margin: 0 0 14pt;
-  font-weight: 650;
+  font-size: 34pt;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 1.5in 0 16pt;
+  font-weight: 700;
   string-set: chapter-header "";
 }
-.title-page .subtitle {
-  font-family: "Noto Serif", serif;
-  font-style: italic;
-  font-size: 13pt;
-  color: var(--muted);
-  margin: 0 0 0.55in;
-  text-align: left;
-}
 .title-rule {
-  width: 1.4in;
-  height: 1.5pt;
-  background: #b08d57;
-  margin: 16pt 0 16pt;
+  width: 28pt;
+  height: 3pt;
+  background: var(--accent);
+  margin: 0 0 16pt;
+}
+.title-page .subtitle {
+  font-family: Inter, sans-serif;
+  font-size: 11.5pt;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 400;
+  max-width: 4.4in;
 }
 .title-page .author {
-  font-family: Inter, sans-serif;
-  font-size: 13pt;
-  letter-spacing: 0.12em;
+  margin-top: 1.65in;
+  font-size: 12pt;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  font-weight: 600;
   color: var(--ink);
 }
 .title-page .imprint {
-  margin-top: 1.35in;
-  font-family: Inter, sans-serif;
-  font-size: 8.5pt;
-  letter-spacing: 0.14em;
+  margin: 8pt 0 28pt;
+  font-size: 8pt;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
 }
-
 .copyright {
-  padding-top: 2.8in;
-  font-size: 9pt;
-  line-height: 1.45;
-  text-align: left;
+  font-size: 8pt;
+  line-height: 1.5;
   color: var(--muted);
+  text-align: left;
+  max-width: 4.8in;
 }
-.copyright strong { color: var(--ink); }
+.copyright strong { color: var(--ink); font-weight: 600; }
 
+.toc {
+  page: front;
+  break-after: page;
+}
 .toc h1 {
   font-size: 22pt;
-  margin: 0 0 24pt;
-  color: var(--cover);
+  letter-spacing: -0.03em;
+  margin: 0 0 18pt;
+  color: var(--ink);
+  font-weight: 700;
   string-set: chapter-header "Contents";
 }
 .toc ol { list-style: none; padding: 0; margin: 0; }
 .toc li { margin: 0; }
 .toc a {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10pt;
   text-decoration: none;
   color: var(--ink);
-  font-size: 10pt;
+  font-size: 9.4pt;
+  line-height: 1.35;
   padding: 3pt 0;
-  border-bottom: 0;
-  page-break-inside: avoid;
-  page-break-before: auto;
+  break-inside: avoid;
 }
 .toc a.part {
-  font-weight: 650;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 8.5pt;
+  letter-spacing: 0.14em;
+  font-size: 7.5pt;
   color: var(--accent);
-  padding-top: 14pt;
+  padding: 12pt 0 3pt;
+  display: block;
 }
 .toc a.part::after { content: none; }
 .toc a.chapter::after {
-  content: leader(".") target-counter(attr(href), page);
+  content: target-counter(attr(href), page);
   font-variant-numeric: tabular-nums;
   color: var(--muted);
+  font-size: 9pt;
+  font-family: Inter, sans-serif;
+  flex: 0 0 auto;
 }
 
+/* —— parts —— */
 .part-page {
   page: part;
-  page-break-before: always;
-  page-break-after: always;
-  background: #0b1220;
-  color: #f4efe4;
-  padding: 2.6in 24mm 24mm;
-  min-height: 9.1in;
+  break-before: page;
+  break-after: page;
+  background: var(--cover);
+  color: #f4f6fb;
+  padding: 2.4in 22mm 22mm;
+  min-height: 10in;
   box-sizing: border-box;
 }
 .part-label {
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  font-size: 9pt;
-  color: #b08d57;
-  margin: 0 0 12pt;
+  font-size: 8.5pt;
+  color: #8da4ff;
+  margin: 0 0 14pt;
 }
 .part-page h1 {
-  font-size: 34pt;
-  color: #f4efe4 !important;
+  font-size: 36pt;
+  color: #ffffff !important;
   margin: 0 0 14pt;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 .part-deck {
-  font-family: "Noto Serif", serif;
-  font-style: italic;
-  font-size: 12pt;
-  color: #c9c3b8;
-  max-width: 3.6in;
+  font-family: Inter, sans-serif;
+  font-size: 11pt;
+  line-height: 1.45;
+  color: #c5cde0;
+  max-width: 3.7in;
   text-align: left;
+  font-style: normal;
 }
 
+/* —— chapters —— */
 section.chapter {
-  page-break-before: always;
+  break-before: page;
 }
+section.chapter > *:first-child { margin-top: 0; }
+
 .chapter-kicker {
-  font-family: Inter, sans-serif;
-  font-size: 8pt;
-  letter-spacing: 0.22em;
+  font-size: 7.5pt;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  margin: 0 0 8pt;
+  margin: 0 0 6pt;
+  font-weight: 600;
 }
 .chapter h1.chapter-title {
-  font-size: 22pt;
+  font-size: 20pt;
   line-height: 1.15;
-  margin: 0 0 18pt;
-  color: var(--cover);
+  letter-spacing: -0.025em;
+  margin: 0 0 14pt;
+  color: var(--ink);
   padding-bottom: 10pt;
-  border-bottom: 1pt solid var(--rule);
+  border-bottom: 1.5pt solid var(--ink);
   string-set: chapter-header content();
-  font-weight: 650;
+  font-weight: 700;
 }
 
 h2 {
-  font-size: 12.5pt;
-  margin: 18pt 0 8pt;
-  color: var(--cover);
-  font-weight: 650;
-  page-break-after: avoid;
+  font-size: 11.5pt;
+  margin: 15pt 0 6pt;
+  color: var(--ink);
+  font-weight: 700;
+  break-after: avoid;
+  break-inside: avoid;
 }
 h3 {
-  font-size: 11pt;
-  margin: 14pt 0 6pt;
+  font-size: 10.2pt;
+  margin: 12pt 0 5pt;
   color: var(--accent);
-  page-break-after: avoid;
+  font-weight: 650;
+  break-after: avoid;
 }
 
-p { margin: 0 0 8pt; }
-strong { font-weight: 650; }
+p { margin: 0 0 7pt; }
+strong { font-weight: 700; }
 
-ul, ol { margin: 0 0 10pt; padding-left: 1.15em; }
-li { margin: 0 0 3pt; text-align: left; }
+ul, ol { margin: 0 0 9pt; padding-left: 1.1em; }
+li { margin: 0 0 2.5pt; text-align: left; }
 
 blockquote {
-  margin: 10pt 0 12pt;
-  padding: 2pt 0 2pt 12pt;
-  border-left: 2pt solid #b08d57;
+  margin: 8pt 0 10pt;
+  padding: 6pt 0 6pt 10pt;
+  border-left: 2.5pt solid var(--accent);
+  background: transparent;
   color: var(--ink);
   font-style: italic;
 }
@@ -278,80 +318,86 @@ a { color: var(--accent); text-decoration: none; }
 
 code {
   font-family: "JetBrains Mono", "Noto Sans Mono", monospace;
-  font-size: 8.3pt;
-  background: #efeae1;
-  padding: 0 2.5pt;
+  font-size: 8pt;
+  background: var(--accent-soft);
+  color: #1b2a6b;
+  padding: 0 2pt;
 }
 
 pre {
   font-family: "JetBrains Mono", "Noto Sans Mono", monospace;
-  font-size: 7.8pt;
-  line-height: 1.35;
-  background: #f3eee6;
-  border: 0.5pt solid var(--rule);
+  font-size: 7.5pt;
+  line-height: 1.38;
+  background: #f5f7fb;
+  border-left: 2.5pt solid var(--accent);
+  border-radius: 0;
   padding: 8pt 10pt;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
   text-align: left;
-  margin: 8pt 0 12pt;
-  page-break-inside: avoid;
+  margin: 8pt 0 11pt;
+  break-inside: auto;
 }
-pre code { background: transparent; padding: 0; font-size: inherit; }
+pre code { background: transparent; color: inherit; padding: 0; }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 8.2pt;
-  margin: 8pt 0 14pt;
-  page-break-inside: avoid;
+  font-size: 8pt;
+  margin: 8pt 0 12pt;
+  break-inside: auto;
   text-align: left;
   hyphens: none;
 }
+thead { display: table-header-group; }
 th, td {
-  border-bottom: 0.4pt solid var(--rule);
-  padding: 4pt 6pt 4pt 0;
+  border-bottom: 0.4pt solid var(--faint);
+  padding: 4.5pt 7pt 4.5pt 0;
   vertical-align: top;
 }
 th {
-  font-family: Inter, sans-serif;
-  font-size: 7.5pt;
-  letter-spacing: 0.04em;
+  font-size: 7pt;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent);
-  font-weight: 650;
+  font-weight: 700;
+  background: var(--paper);
 }
 
 figure {
-  margin: 12pt 0 16pt;
-  page-break-inside: avoid;
+  margin: 10pt 0 12pt;
+  break-inside: avoid;
   text-align: center;
 }
 figure img {
   max-width: 100%;
+  max-height: 3.7in;
+  width: auto;
   height: auto;
+  display: block;
+  margin: 0 auto;
 }
 figcaption {
-  font-family: Inter, sans-serif;
-  font-size: 8pt;
+  font-size: 7.5pt;
   color: var(--muted);
-  margin-top: 6pt;
+  margin-top: 5pt;
   text-align: center;
-  font-style: italic;
+  font-style: normal;
+  letter-spacing: 0.02em;
 }
 
 hr {
   border: none;
-  border-top: 0.4pt solid var(--rule);
-  margin: 16pt 0;
+  border-top: 0.4pt solid var(--faint);
+  margin: 12pt 0;
 }
 
 .colophon {
-  page-break-before: always;
-  padding-top: 2.2in;
-  text-align: left;
+  break-before: page;
 }
+.colophon h1.chapter-title,
 .colophon h1 {
-  font-size: 16pt;
-  margin-bottom: 12pt;
+  font-size: 20pt;
+  margin: 0 0 12pt;
   string-set: chapter-header "Colophon";
 }

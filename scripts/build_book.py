@@ -234,7 +234,7 @@ def build() -> None:
     preface_md, fig = expand_mermaid(preface_md, mmdc, fig)
     preface_md = rewrite_links(preface_md)
     body.append(
-        '<section class="preface chapter" id="preface">'
+        '<section class="chapter body-start" id="preface">'
         '<p class="chapter-kicker">Front matter</p>'
         '<h1 class="chapter-title">Preface</h1>'
         + md_to_html(preface_md)
@@ -264,7 +264,9 @@ def build() -> None:
 
     toc_html = ['<nav class="toc front"><h1>Contents</h1><ol>']
     for kind, label, cid in toc:
-        toc_html.append(f'<li><a class="{kind}" href="#{cid}">{label}</a></li>')
+        toc_html.append(
+            f'<li><a class="{kind}" href="#{cid}"><span class="toc-title">{label}</span></a></li>'
+        )
     toc_html.append("</ol></nav>")
 
     cover = ASSETS / "cover.png"
@@ -284,33 +286,28 @@ def build() -> None:
 </head>
 <body>
 {cover_html}
-<section class="half-title front">
-  <p>The AI System Design Primer</p>
-</section>
 <section class="title-page front">
   <h1>The AI System Design Primer</h1>
   <div class="title-rule"></div>
   <p class="subtitle">Learn how to design production AI systems.<br/>Prep for the AI system design interview.</p>
   <p class="author">Qaiser Mehmood</p>
   <p class="imprint">A living technical handbook · 2026</p>
-</section>
-<section class="copyright front">
-  <p><strong>The AI System Design Primer</strong></p>
-  <p>Copyright © 2026 Qaiser Mehmood and contributors.</p>
-  <p>Prose is licensed under Creative Commons Attribution–ShareAlike 4.0 International.
-  Code samples are MIT.</p>
-  <p>This PDF is generated from the living GitHub handbook and will go stale
-  when the field moves. Prefer the repository for corrections.</p>
-  <p>github.com/qmmughal/ai-system-design-primer</p>
-  <p>First edition, 2026. Typeset in Noto Serif, Inter, and JetBrains Mono.</p>
+  <div class="copyright">
+    <p><strong>The AI System Design Primer</strong></p>
+    <p>Copyright © 2026 Qaiser Mehmood. Prose is CC BY-SA 4.0. Code samples are MIT.</p>
+    <p>Generated from the living GitHub handbook. Prefer the repository for corrections.</p>
+    <p>github.com/qmmughal/ai-system-design-primer</p>
+  </div>
 </section>
 {''.join(toc_html)}
 {''.join(body)}
 <section class="colophon chapter" id="colophon">
-  <h1>Colophon</h1>
-  <p>This book was generated from the Markdown source of the primer. Figures
-  are rendered from the Mermaid diagrams in the repository. Running heads,
-  parts, and page geometry follow a 7.5 × 9.5 inch trade-book layout.</p>
+  <p class="chapter-kicker">Back matter</p>
+  <h1 class="chapter-title">Colophon</h1>
+  <p>This PDF is typeset from the Markdown source. Figures are rendered from
+  the Mermaid diagrams in the repository. The page is a 7 × 10 inch modern
+  trade layout: one paper surface, running heads, and chapters that start
+  on a new page without nested frames.</p>
   <p>Rebuild with <code>python3 scripts/build_book.py</code>.</p>
 </section>
 </body>
