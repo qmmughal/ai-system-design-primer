@@ -1,0 +1,36 @@
+name: New failure mode
+description: Add a production failure to the atlas (even anonymized)
+title: "failure: "
+labels: ["failure-atlas"]
+body:
+  - type: textarea
+    id: mechanism
+    attributes:
+      label: Mechanism
+      description: What is actually happening, not the ticket title.
+    validations:
+      required: true
+  - type: textarea
+    id: looks
+    attributes:
+      label: What it looks like
+    validations:
+      required: true
+  - type: textarea
+    id: detection
+    attributes:
+      label: Detection (metric / trace)
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Fix in the system (not in the prompt)
+    validations:
+      required: true
+  - type: textarea
+    id: eval
+    attributes:
+      label: Eval that would have caught it
+    validations:
+      required: true

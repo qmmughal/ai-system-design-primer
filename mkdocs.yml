@@ -1,0 +1,94 @@
+site_name: The AI System Design Primer
+site_description: Learn how to design production AI systems. Prep for the AI system design interview.
+repo_url: https://github.com/qmmughal/ai-system-design-primer
+repo_name: qmmughal/ai-system-design-primer
+edit_uri: edit/main/docs/
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - toc.follow
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+nav:
+  - Home: index.md
+  - How to use this primer: topics/00-how-to-use.md
+  - Topics:
+      - The systems model of an LLM: topics/01-llm-systems-model.md
+      - The request path: topics/02-request-path.md
+      - Context is a scarce resource: topics/03-context.md
+      - RAG: topics/04-rag.md
+      - Chunking, embeddings, retrieval: topics/05-retrieval.md
+      - Agents are loops: topics/06-agents.md
+      - Tools and MCP: topics/07-tools-mcp.md
+      - Memory: topics/08-memory.md
+      - Evals: topics/09-evals.md
+      - Observability: topics/10-observability.md
+      - Cost, latency, routing: topics/11-cost-latency-routing.md
+      - Safety: topics/12-safety.md
+      - Gateways, caching, structured output: topics/13-gateways.md
+  - Failure atlas:
+      - Index: failures/README.md
+      - RAG silent lies: failures/01-rag-silent-lies.md
+      - Agent loops: failures/02-agent-loops.md
+      - Eval gaming: failures/03-eval-gaming.md
+      - Prompt injection: failures/04-prompt-injection.md
+      - Context rot: failures/05-context-rot.md
+      - Cost blowups: failures/06-cost-blowups.md
+      - Tool hallucination: failures/07-tool-hallucination.md
+      - Memory poisoning: failures/08-memory-poisoning.md
+  - Interviews:
+      - How to run an AI system design interview: interviews/README.md
+      - Design ChatGPT: interviews/01-design-chatgpt.md
+      - Design a customer support agent: interviews/02-customer-support-agent.md
+      - Design enterprise RAG: interviews/03-enterprise-rag.md
+      - Design a coding assistant: interviews/04-coding-assistant.md
+      - Design AI search / Perplexity: interviews/05-ai-search.md
+      - Design an LLM gateway: interviews/06-llm-gateway.md
+      - Design memory for a personal assistant: interviews/07-personal-memory.md
+      - Design an eval platform: interviews/08-eval-platform.md
+      - Design a code review agent: interviews/09-code-review-agent.md
+      - Design a realtime voice agent: interviews/10-voice-agent.md
+      - Design multimodal product search: interviews/11-multimodal-search.md
+      - Design workplace search / Slack AI: interviews/12-workplace-ai.md
+      - Design LLM content moderation: interviews/13-moderation.md
+      - Design cost-optimized inference: interviews/14-cost-optimized-inference.md
+      - Design a browsing agent: interviews/15-browsing-agent.md
+      - Design an AI tutor: interviews/16-ai-tutor.md
+      - Design meeting summarization: interviews/17-meeting-summarization.md
+      - Design a multi-agent research system: interviews/18-multi-agent-research.md
+  - Contributing: contributing.md
+  - License: license.md
